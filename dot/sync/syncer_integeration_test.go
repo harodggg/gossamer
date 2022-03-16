@@ -42,18 +42,18 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func newMockFinalityGadget() *mocks.FinalityGadget {
-	m := new(mocks.FinalityGadget)
-	// using []uint8 instead of []byte: https://github.com/stretchr/testify/pull/969
-	m.On("VerifyBlockJustification", mock.AnythingOfType("common.Hash"), mock.AnythingOfType("[]uint8")).Return(nil)
-	return m
-}
+//func newMockFinalityGadget() *mocks.FinalityGadget {
+//	m := new(mocks.FinalityGadget)
+//	// using []uint8 instead of []byte: https://github.com/stretchr/testify/pull/969
+//	m.On("VerifyBlockJustification", mock.AnythingOfType("common.Hash"), mock.AnythingOfType("[]uint8")).Return(nil)
+//	return m
+//}
 
-func newMockBabeVerifier() *mocks.BabeVerifier {
-	m := new(mocks.BabeVerifier)
-	m.On("VerifyBlock", mock.AnythingOfType("*types.Header")).Return(nil)
-	return m
-}
+//func newMockBabeVerifier() *mocks.BabeVerifier {
+//	m := new(mocks.BabeVerifier)
+//	m.On("VerifyBlock", mock.AnythingOfType("*types.Header")).Return(nil)
+//	return m
+//}
 
 func newMockNetwork() *mocks.Network {
 	m := new(mocks.Network)
@@ -141,9 +141,9 @@ func newTestSyncer(t *testing.T) *Service {
 		})
 
 	cfg.TransactionState = stateSrvc.Transaction
-	cfg.BabeVerifier = newMockBabeVerifier()
+	cfg.BabeVerifier = newMockBabeVerifier(ctrl)
 	cfg.LogLvl = log.Trace
-	cfg.FinalityGadget = newMockFinalityGadget()
+	cfg.FinalityGadget = newMockFinalityGadget(ctrl)
 	cfg.Network = newMockNetwork()
 
 	syncer, err := NewService(cfg)

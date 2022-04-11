@@ -42,19 +42,6 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-//func newMockFinalityGadget() *mocks.FinalityGadget {
-//	m := new(mocks.FinalityGadget)
-//	// using []uint8 instead of []byte: https://github.com/stretchr/testify/pull/969
-//	m.On("VerifyBlockJustification", mock.AnythingOfType("common.Hash"), mock.AnythingOfType("[]uint8")).Return(nil)
-//	return m
-//}
-
-//func newMockBabeVerifier() *mocks.BabeVerifier {
-//	m := new(mocks.BabeVerifier)
-//	m.On("VerifyBlock", mock.AnythingOfType("*types.Header")).Return(nil)
-//	return m
-//}
-
 func newMockNetwork() *mocks.Network {
 	m := new(mocks.Network)
 	m.On("DoBlockRequest", mock.AnythingOfType("peer.ID"),
@@ -66,7 +53,7 @@ func newTestSyncer(t *testing.T) *Service {
 	ctrl := gomock.NewController(t)
 
 	mockTelemetryClient := NewMockClient(ctrl)
-	mockTelemetryClient.EXPECT().SendMessage(gomock.Any())
+	mockTelemetryClient.EXPECT().SendMessage(gomock.Any()).AnyTimes()
 
 	wasmer.DefaultTestLogLvl = log.Warn
 
@@ -145,7 +132,7 @@ func newTestSyncer(t *testing.T) *Service {
 	cfg.LogLvl = log.Trace
 	cfg.FinalityGadget = newMockFinalityGadget(ctrl)
 	cfg.Network = newMockNetwork()
-
+	cfg.Telemetry = mockTelemetryClient
 	syncer, err := NewService(cfg)
 	require.NoError(t, err)
 	return syncer

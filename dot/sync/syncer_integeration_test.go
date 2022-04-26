@@ -129,7 +129,7 @@ func newTestSyncer(t *testing.T) *Service {
 
 	cfg.TransactionState = stateSrvc.Transaction
 	mockBabeVerifier := NewMockBabeVerifier(ctrl)
-	mockBabeVerifier.EXPECT().VerifyBlock(gomock.AssignableToTypeOf(types.Header{})).AnyTimes()
+	mockBabeVerifier.EXPECT().VerifyBlock(gomock.AssignableToTypeOf(&types.Header{})).AnyTimes()
 	cfg.BabeVerifier = mockBabeVerifier
 	cfg.LogLvl = log.Trace
 	mockFinalityGadget := NewMockFinalityGadget(ctrl)

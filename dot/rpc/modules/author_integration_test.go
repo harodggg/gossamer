@@ -274,6 +274,7 @@ func TestAuthorModule_SubmitExtrinsic_AlreadyInPool(t *testing.T) {
 }
 
 func TestAuthorModule_InsertKey_Integration(t *testing.T) {
+	t.Parallel()
 	integrationTestController := setupStateAndRuntime(t, t.TempDir(), useInstanceFromGenesis)
 	auth := newAuthorModule(t, integrationTestController)
 
@@ -355,6 +356,7 @@ func TestAuthorModule_InsertKey_Integration(t *testing.T) {
 }
 
 func TestAuthorModule_HasKey_Integration(t *testing.T) {
+	t.Parallel()
 	integrationTestController := setupStateAndRuntime(t, t.TempDir(), useInstanceFromGenesis)
 
 	ks := keystore.NewGlobalKeystore()
@@ -422,6 +424,7 @@ func TestAuthorModule_HasKey_Integration(t *testing.T) {
 }
 
 func TestAuthorModule_HasSessionKeys_Integration(t *testing.T) {
+	t.Parallel()
 	integrationTestController := setupStateAndRuntime(t, t.TempDir(), useInstanceFromGenesis)
 	auth := newAuthorModule(t, integrationTestController)
 

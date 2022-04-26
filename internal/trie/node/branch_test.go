@@ -34,6 +34,7 @@ func Test_NewBranch(t *testing.T) {
 }
 
 func Test_Branch_Type(t *testing.T) {
+	t.Parallel()
 	testCases := map[string]struct {
 		branch *Branch
 		Type   Type

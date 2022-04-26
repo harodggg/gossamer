@@ -11,6 +11,7 @@ import (
 )
 
 func Test_Branch_encodeHeader(t *testing.T) {
+	t.Parallel()
 	testCases := map[string]struct {
 		branch     *Branch
 		writes     []writeCall
@@ -131,6 +132,7 @@ func Test_Branch_encodeHeader(t *testing.T) {
 }
 
 func Test_Leaf_encodeHeader(t *testing.T) {
+	t.Parallel()
 	testCases := map[string]struct {
 		leaf       *Leaf
 		writes     []writeCall
